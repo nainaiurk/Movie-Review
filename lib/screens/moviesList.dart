@@ -4,7 +4,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:movie_review/authentication.dart';
 import 'package:movie_review/screens/moviesReview.dart';
+import 'package:movie_review/screens/welcome_screen.dart';
 
 class MoviesList extends StatefulWidget {
   const MoviesList({Key? key}) : super(key: key);
@@ -40,6 +42,18 @@ class _MoviesListState extends State<MoviesList> {
               ),
             ),
           ),
+          actions: [
+            IconButton(
+              onPressed: (){
+                signOut();
+                Navigator.pushReplacement(
+                  context, 
+                  MaterialPageRoute(builder: (context)=>const WelcomeScreen())
+                );
+              }, 
+              icon: const Icon(Icons.logout)
+            )
+          ],
         ),
       body: Container(
         height: maxHeight,

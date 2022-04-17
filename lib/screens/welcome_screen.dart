@@ -89,6 +89,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         )
                       );
                     }
+                    else{
+                      const Center(child: CircularProgressIndicator());
+                    }
                   },
                   color: Colors.white,
                   height: 50,
