@@ -1,10 +1,29 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_review/screens/splashScreen.dart';
-import 'package:movie_review/screens/welcome_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if(kIsWeb){
+   await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyCXRBNDeGUWTgy0U8YZySWoc0xDCW-U8xM",
+        authDomain: "movie-review-4db8e.firebaseapp.com",
+        projectId: "movie-review-4db8e",
+        storageBucket: "movie-review-4db8e.appspot.com",
+        messagingSenderId: "68910580433",
+        appId: "1:68910580433:web:7176777e676f7a4321fbf0",
+        measurementId: "G-WXPM9MW703"
+      )
+    ).whenComplete(() => runApp(const MyApp()));
+  }
+  else {
+    await Firebase.initializeApp();
+    runApp(const MyApp());
+  }
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
