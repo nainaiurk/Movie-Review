@@ -1,4 +1,6 @@
 
+// ignore_for_file: non_constant_identifier_names, file_names
+
 import 'dart:convert';
 
 List<MoviesModel> MoviesModelFromJson(String str) => List<MoviesModel>.from(json.decode(str).map((x) => MoviesModel.fromJson(x)));

@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:movie_review/authentication.dart';
 import 'package:movie_review/screens/moviesList.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -14,9 +16,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     var maxHeight = MediaQuery.of(context).size.height;
     var maxWidth = MediaQuery.of(context).size.width;
+    bool isSignedIn = false;
     return Scaffold(
       body: Center(
-        child: Container(
+        child: isSignedIn == true? const CircularProgressIndicator():
+        Container(
           height: maxHeight,
           width: maxWidth,
           decoration: const BoxDecoration(
@@ -65,20 +69,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 60,right: 60,bottom: 60),
                 child: MaterialButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context, 
-                      PageRouteBuilder(
-                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
-                        transitionDuration: const Duration(milliseconds:1000),
-                        pageBuilder: (_, __, ___) =>const  MoviesList()
-                      )
-                    );
+                  onPressed: () async {
+                    User? user = await signInWithGoogle();
+                    setState(() {
+                      isSignedIn == true;
+                    });
+                    if (user != null){
+                      Navigator.push(
+                        context, 
+                        PageRouteBuilder(
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+                          transitionDuration: const Duration(milliseconds:1000),
+                          pageBuilder: (_, __, ___) =>const  MoviesList()
+                        )
+                      );
+                    }
                   },
                   color: Colors.white,
                   height: 50,

@@ -5,16 +5,16 @@ import 'package:movie_review/screens/splashScreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if(kIsWeb){
+  if(kIsWeb && Firebase.apps.isEmpty){
    await Firebase.initializeApp(
       options: const FirebaseOptions(
         apiKey: "AIzaSyCXRBNDeGUWTgy0U8YZySWoc0xDCW-U8xM",
         authDomain: "movie-review-4db8e.firebaseapp.com",
-        projectId: "movie-review-4db8e",
-        storageBucket: "movie-review-4db8e.appspot.com",
+        databaseURL: "https://{movie-review-4db8e}.firebaseio.com",
         messagingSenderId: "68910580433",
         appId: "1:68910580433:web:7176777e676f7a4321fbf0",
-        measurementId: "G-WXPM9MW703"
+        measurementId: "G-WXPM9MW703",
+        projectId: "movie-review-4db8e",
       )
     ).whenComplete(() => runApp(const MyApp()));
   }
